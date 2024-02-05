@@ -1,0 +1,22 @@
+version: "3.9"
+name: egovframework
+services:
+  egovframework-mariadb:
+    container_name: egovframework-mariadb
+    hostname: egovframework-mariadb
+    image: mysql:8.0.18
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker_data/db/conf.d:/etc/mysql/conf.d
+      - ./docker_data/db/data:/var/lib/mysql
+      - ./docker_data/db/initdb.d:/docker-entrypoint-initdb.d
+    env_file: ./docker_data/db/.env
+    environment:
+      TZ: Asia/Seoul
+    networks:
+      - egovframework-network
+
+networks:
+  egovframework-network:
+    driver: bridge

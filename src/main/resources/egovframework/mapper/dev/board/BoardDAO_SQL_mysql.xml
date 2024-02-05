@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardDAO">
+
+
+	<select id="selectBoardList" resultType="egovframework.dev.board.service.impl.BoardVO">
+		SELECT   H_NO
+			    ,H_TITLE
+				,H_CONTENT
+				,H_NAME
+				,H_DATE
+		FROM H_BOARD
+
+		where 1=1
+
+		<if test="sc == 'hNo'">
+			AND H_NO LIKE CONCAT ('%', #{searchKeyword}, '%')
+		</if>
+		<if test="sc == 'hTitle'">
+			AND H_TITLE LIKE CONCAT ('%', #{searchKeyword}, '%')
+		</if>
+		<if test="sc == 'hContent'">
+			AND H_CONTENT LIKE CONCAT ('%', #{searchKeyword}, '%')
+		</if>
+		<if test="sc == 'hName'">
+			AND H_NAME LIKE CONCAT ('%', #{searchKeyword}, '%')
+		</if>
+		<if test="sc == 'hDate'">
+			AND H_DATE LIKE CONCAT ('%', #{searchKeyword}, '%')
+		</if>
+
+	</select>
+
+	<select id="selectBoardDetail" resultType="egovframework.dev.board.service.impl.BoardVO">
+		SELECT   H_NO
+				,H_TITLE
+				,H_CONTENT
+				,H_NAME
+				,H_DATE
+		FROM H_BOARD
+
+		where H_NO = #{hNo};
+
+	</select>
+
+	<select id="selectBoardInsert" resultType="egovframework.dev.board.service.impl.BoardVO">
+		insert into H_BOARD(
+							  H_TITLE
+							 ,H_CONTENT
+							 ,H_NAME
+
+					) values (
+							 #{hTitle}
+						    ,#{hContent}
+						    ,#{hName}
+						     )
+
+	</select>
+
+	<select id="selectBoardUpdateAction" resultType="egovframework.dev.board.service.impl.BoardVO">
+			update H_BOARD
+			set    H_TITLE = #{hTitle}
+				  ,H_CONTENT = #{hContent}
+				  ,H_NAME = #{hName}
+
+			where H_NO = #{hNo};
+
+	</select>
+
+	<select id="selectBoardDelete" resultType="egovframework.dev.board.service.impl.BoardVO">
+		delete FROM H_BOARD
+				where H_NO = #{hNo};
+
+	</select>
+
+</mapper>

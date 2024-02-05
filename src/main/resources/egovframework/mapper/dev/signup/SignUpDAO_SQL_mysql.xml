@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="signUpDAO">
+
+
+	<select id="signUpInsert" resultType="egovframework.dev.signup.service.impl.SignUpVO">
+		insert into LITCHI_USER (
+								 LU_ID
+								,LU_PW
+								,LU_PW2
+								,LU_PWQ
+								,LU_PWA
+								,LU_NM
+								,LU_BTD
+								,LU_SEX
+								,LU_TEL
+								,LU_EM
+						)values (
+								 #{luId}
+								,#{luPw}
+								,#{luPw2}
+								,#{luPwq}
+								,#{luPwa}
+								,#{luNm}
+								,#{luBtd}
+								,#{luSex}
+								,#{luTel}
+								,#{luEm}
+						)
+	</select>
+
+</mapper>
