@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="iceCreamDAO">
+
+	<select id="selectIceCreamList" parameterType="egovframework.dev.ic.service.impl.IceCreamVO" resultType="egovframework.dev.ic.service.impl.IceCreamVO">
+			SELECT   IC_NO
+					,IC_NM
+					,IC_PRICE
+					,IC_COMP
+					,IC_DATE
+
+			FROM ICE_CREAM_INFO
+
+			where 1=1
+
+			<if test="sc == 'icNo'">
+				AND IC_NO LIKE CONCAT ('%', #{searchKeyword}, '%')
+			</if>
+			<if test="sc == 'icNm'">
+				AND IC_NM LIKE CONCAT ('%', #{searchKeyword}, '%')
+			</if>
+			<if test="sc == 'icPrice'">
+				AND IC_PRICE LIKE CONCAT ('%', #{searchKeyword}, '%')
+			</if>
+			<if test="sc == 'icComp'">
+				AND IC_COMP LIKE CONCAT ('%', #{searchKeyword}, '%')
+			</if>
+			<if test="sc == 'icDate'">
+				AND IC_DATE LIKE CONCAT ('%', #{searchKeyword}, '%')
+			</if>
+
+	</select>
+
+	<select id="selectIceCreamDetail" parameterType="egovframework.dev.ic.service.impl.IceCreamVO" resultType="egovframework.dev.ic.service.impl.IceCreamVO">
+		select    IC_NO
+				 ,IC_NM
+				 ,IC_PRICE
+				 ,IC_COMP
+				 ,IC_DATE
+		from ICE_CREAM_INFO
+		where IC_NO = #{icNo};
+
+	</select>
+
+	<select id="selectIceCreamInsert" parameterType="egovframework.dev.ic.service.impl.IceCreamVO" resultType="egovframework.dev.ic.service.impl.IceCreamVO">
+		insert into ICE_CREAM_INFO(
+									IC_NM
+								   ,IC_PRICE
+								   ,IC_COMP
+								   ,IC_DATE
+
+						) values (
+								   #{icNm}
+								  ,#{icPrice}
+								  ,#{icComp}
+								  ,#{icDate}
+										)
+
+	</select>
+
+	<select id="selectIceCreamUpdateAction" parameterType="egovframework.dev.ic.service.impl.IceCreamVO" resultType="egovframework.dev.ic.service.impl.IceCreamVO">
+				update ICE_CREAM_INFO
+				set IC_NM = #{icNm}
+				  ,IC_PRICE = #{icPrice}
+				  ,IC_COMP = #{icComp}
+				  ,IC_DATE = #{icDate}
+				where IC_NO = #{icNo};
+	</select>
+
+	<select id="selectIceCreamDelete" parameterType="egovframework.dev.ic.service.impl.IceCreamVO" resultType="egovframework.dev.ic.service.impl.IceCreamVO">
+		delete from ICE_CREAM_INFO
+		           where IC_NO = #{icNo};
+	</select>
+
+
+
+</mapper>

@@ -17,4 +17,14 @@ public class SignUpServiceImpl implements SignUpService {
     public void signUpInsert(SignUpVO formVO) {
         signUpDAO.signUpInsert(formVO);
     }
+
+    @Override
+    public boolean login(SignUpVO signUpVO) {
+        SignUpVO loginMember = signUpDAO.login(signUpVO);
+        if (loginMember != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

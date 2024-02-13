@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="litchiWorkerDAO">
+
+	<select id="selectLitchiWorkerList" parameterType="egovframework.dev.litchi.service.impl.LitchiWorkerVO" resultType="egovframework.dev.litchi.service.impl.LitchiWorkerVO">
+			SELECT   LW_NO
+				 	,LW_NM
+				 	,LW_POSITION
+				 	,LW_AGE
+				 	,LW_JOINDATE
+
+			FROM LITCHI_WORKERLIST
+
+			where 1=1
+
+			<if test="sk == 'lwNo'">
+				AND LW_NO LIKE CONCAT ('%', #{searchKeyword}, '%')
+			</if>
+			<if test="sk == 'lwNm'">
+				AND LW_NM LIKE CONCAT ('%', #{searchKeyword}, '%')
+			</if>
+			<if test="sk == 'lwPosition'">
+				AND LW_POSITION LIKE CONCAT ('%', #{searchKeyword}, '%')
+			</if>
+			<if test="sk == 'lwAge'">
+				AND LW_AGE LIKE CONCAT ('%', #{searchKeyword}, '%')
+			</if>
+			<if test="sk == 'lwJoindate'">
+				AND LW_JOINDATE LIKE CONCAT ('%', #{searchKeyword}, '%')
+			</if>
+
+	</select>
+
+	<select id="detailLitchiWorkerList" parameterType="egovframework.dev.litchi.service.impl.LitchiWorkerVO"  resultType="egovframework.dev.litchi.service.impl.LitchiWorkerVO">
+		select    LW_NO
+			 ,LW_NM
+			 ,LW_POSITION
+			 ,LW_AGE
+			 ,LW_JOINDATE
+		from LITCHI_WORKERLIST
+		where LW_NO = #{lwNo};
+
+	</select>
+
+	<select id="formLitchiWorkerList" parameterType="egovframework.dev.litchi.service.impl.LitchiWorkerVO"  resultType="egovframework.dev.litchi.service.impl.LitchiWorkerVO">
+		insert into LITCHI_WORKERLIST(
+									  LW_NM
+									 ,LW_POSITION
+									 ,LW_AGE
+									 ,LW_JOINDATE
+							) values (
+									  #{inNm}
+									  ,#{inPosition}
+									  ,#{inAge}
+									  ,#{inJoindate}
+											)
+
+	</select>
+
+	<select id="updateLitchiWorker" parameterType="egovframework.dev.litchi.service.impl.LitchiWorkerVO"  resultType="egovframework.dev.litchi.service.impl.LitchiWorkerVO">
+				update LITCHI_WORKERLIST
+				set LW_NO = #{lwNo}
+				  ,LW_NM = #{lwNm}
+				  ,LW_POSITION = #{lwPosition}
+				  ,LW_AGE = #{lwAge}
+				  ,LW_JOINDATE = #{lwJoindate}
+				where LW_NO = #{lwNo};
+	</select>
+
+	<select id="deleteLitchiWorkerList" parameterType="egovframework.dev.litchi.service.impl.LitchiWorkerVO"  resultType="egovframework.dev.litchi.service.impl.LitchiWorkerVO">
+		delete from LITCHI_WORKERLIST
+		           where LW_NO = #{lwNo};
+	</select>
+
+
+
+</mapper>

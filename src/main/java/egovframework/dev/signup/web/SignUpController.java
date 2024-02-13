@@ -3,9 +3,11 @@ package egovframework.dev.signup.web;
 import egovframework.dev.signup.service.SignUpService;
 import egovframework.dev.signup.service.impl.SignUpVO;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class SignUpController {
@@ -28,15 +30,29 @@ public class SignUpController {
 
     //로그인 화면
     @RequestMapping(value = "/signup/signIn.do")
-    public String login() {
+    public String loginForm() {
         return "signup/signIn";
     }
 
-    // 로그인 처리
-    /*@RequestMapping(value = "/signup/signInAction.do")
-    public String signInAction(SignUpVO formVO) {
-        signUpService.signUpInsert(formVO);
-        return "redirect:/signup/signUp.do";
-    }*/
+    //로그인 처리
+    @RequestMapping(value = "/signup/login.do")
+    public String login(@ModelAttribute SignUpVO signUpVO, HttpSession session) {
+        boolean loginResult = signUpService.login(signUpVO);
+        if (loginResult) {
+            session.setAttribute("loginId", signUpVO.getLuId());
+            return "signup/home";
+        } else {
+            return "redirect:/signup/signIn.do";
+        }
+
+    }
+
+    //로그아웃
+    @RequestMapping(value = "/logout.do")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/signup/signIn.do";
+    }
+
 
 }
