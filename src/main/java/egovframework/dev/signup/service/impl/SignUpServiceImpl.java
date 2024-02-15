@@ -4,7 +4,6 @@ import egovframework.dev.signup.service.SignUpService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Service("signUpService")
 public class SignUpServiceImpl implements SignUpService {
@@ -18,13 +17,10 @@ public class SignUpServiceImpl implements SignUpService {
         signUpDAO.signUpInsert(formVO);
     }
 
+
+    //로그인
     @Override
-    public boolean login(SignUpVO signUpVO) {
-        SignUpVO loginMember = signUpDAO.login(signUpVO);
-        if (loginMember != null) {
-            return true;
-        } else {
-            return false;
-        }
+    public SignUpVO login(SignUpVO signUpVO) {
+        return signUpDAO.login(signUpVO);
     }
 }

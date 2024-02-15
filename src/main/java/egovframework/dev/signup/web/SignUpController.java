@@ -37,14 +37,24 @@ public class SignUpController {
     //로그인 처리
     @RequestMapping(value = "/signup/login.do")
     public String login(@ModelAttribute SignUpVO signUpVO, HttpSession session) {
-        boolean loginResult = signUpService.login(signUpVO);
-        if (loginResult) {
-            session.setAttribute("loginId", signUpVO.getLuId());
-            return "signup/home";
+        SignUpVO loginResult = signUpService.login(signUpVO);
+        if (loginResult != null) {
+            session.setAttribute("loginUser", signUpVO);
+            return "redirect:/signup/main.do";
         } else {
             return "redirect:/signup/signIn.do";
         }
 
+    }
+
+    //메인(로그인 했을 때만)
+    @RequestMapping(value = "/signup/main.do")
+    public String main(@ModelAttribute SignUpVO signUpVO, HttpSession session) {
+        if(session.getAttribute("loginUser") == null) {
+            return "signup/notLogin";
+        } else {
+
+        return "signup/main";}
     }
 
     //로그아웃

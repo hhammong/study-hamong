@@ -10,5 +10,5 @@ public interface SignUpService {
    void signUpInsert(SignUpVO formVO);
 
 
-   boolean login(SignUpVO signUpVO);
+   SignUpVO login(SignUpVO signUpVO);
 }
